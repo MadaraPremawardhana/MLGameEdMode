@@ -1,0 +1,42 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "ML Game EdMode",
+	"Description": "Editor mode + runtime framework for building, wiring up and testing machine-learning models (ONNX, via Unreal's Neural Network Engine) directly against actors and levels. Ships with two ready-to-use examples: ML-driven procedural animation and ML-driven procedural environment generation, plus a generic 'ML Brain' component and Blueprint function library for any other use case (NPC behaviour, dynamic difficulty, anomaly/cheat detection, etc.).",
+	"Category": "Machine Learning",
+	"CreatedBy": "",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": true,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"EngineVersion": "5.3.0",
+	"Modules": [
+		{
+			"Name": "MLGameRuntime",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "MLGameEdMode",
+			"Type": "Editor",
+			"LoadingPhase": "PostEngineInit"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "NNERuntimeORT",
+			"Enabled": true,
+			"Optional": true
+		},
+		{
+			"Name": "NNERuntimeBasicCpu",
+			"Enabled": true,
+			"Optional": true
+		}
+	]
+}
