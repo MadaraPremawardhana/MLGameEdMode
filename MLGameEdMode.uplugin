@@ -29,6 +29,10 @@
 	],
 	"Plugins": [
 		{
+			"Name": "NNE",
+			"Enabled": true
+		},
+		{
 			"Name": "NNERuntimeORT",
 			"Enabled": true,
 			"Optional": true
