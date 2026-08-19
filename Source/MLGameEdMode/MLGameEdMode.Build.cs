@@ -19,6 +19,11 @@ public class MLGameEdMode : ModuleRules
 			"Slate",
 			"SlateCore",
 			"UnrealEd",
+			// FEditorModeInfo (used by FEditorModeRegistry::RegisterMode) and FToolkitManager
+			// live in this module in UE5, separate from UnrealEd - without it you get LNK2019
+			// "unresolved external symbol" errors for FEditorModeInfo::FEditorModeInfo,
+			// FToolkitManager::Get and FToolkitManager::CloseToolkit at link time.
+			"EditorFramework",
 			"EditorStyle",
 			"EditorSubsystem",
 			"InputCore",
