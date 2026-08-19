@@ -43,14 +43,18 @@ bool FMLModelRunner::LoadModel(const UMLModelAsset* InModelAsset)
 		return false;
 	}
 
-	const TSharedPtr<UE::NNE::IModelCPU> Model = Runtime->CreateModelCPU(InModelAsset->ModelData);
+	// UE 5.3 NNE API: INNERuntimeCPU::CreateModel() -> TUniquePtr<IModelCPU>,
+	// IModelCPU::CreateModelInstance() -> TUniquePtr<IModelInstanceCPU>.
+	// (UE 5.4+ renamed these to CreateModelCPU()/CreateModelInstanceCPU() and
+	// switched to TSharedPtr - swap the two calls below if you upgrade.)
+	TUniquePtr<UE::NNE::IModelCPU> Model = Runtime->CreateModel(InModelAsset->ModelData);
 	if (!Model.IsValid())
 	{
 		UE_LOG(LogMLGame, Error, TEXT("FMLModelRunner::LoadModel - runtime '%s' failed to create a model from '%s'. Check the .onnx file imported cleanly."), *RuntimeName, *InModelAsset->GetName());
 		return false;
 	}
 
-	ModelInstance = Model->CreateModelInstanceCPU();
+	ModelInstance = Model->CreateModelInstance();
 	if (!ModelInstance.IsValid())
 	{
 		UE_LOG(LogMLGame, Error, TEXT("FMLModelRunner::LoadModel - failed to create a model instance for '%s'."), *InModelAsset->GetName());

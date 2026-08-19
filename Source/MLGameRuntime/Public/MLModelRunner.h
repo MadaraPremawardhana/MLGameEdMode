@@ -22,6 +22,13 @@ namespace UE::NNE
  * this is the ONLY file you should need to touch to fix it up. Everything
  * else in the plugin talks to models exclusively through this class.
  *
+ * Written against the UE 5.3 NNE API specifically: INNERuntimeCPU::CreateModel()
+ * returns TUniquePtr<IModelCPU>, and IModelCPU::CreateModelInstance() returns
+ * TUniquePtr<IModelInstanceCPU>. UE 5.4+ renamed these to CreateModelCPU() /
+ * CreateModelInstanceCPU() and changed the return type to TSharedPtr - if you
+ * upgrade the engine and get "is not a member of" compile errors here, that's
+ * the rename to account for.
+ *
  * Current implementation runs CPU inference synchronously (INNERuntimeCPU /
  * IModelInstanceCPU, RunSync). This is intentional: it keeps the plugin
  * dependency-light and works out of the box with the free "NNE Runtime ORT"
@@ -56,7 +63,7 @@ public:
 	bool RunInference(const TArray<float>& InputValues, TArray<float>& OutOutputValues);
 
 private:
-	TSharedPtr<UE::NNE::IModelInstanceCPU> ModelInstance;
+	TUniquePtr<UE::NNE::IModelInstanceCPU> ModelInstance;
 	int32 NumInputFeatures = 0;
 	int32 NumOutputFeatures = 0;
 };

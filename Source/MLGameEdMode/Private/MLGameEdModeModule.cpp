@@ -2,7 +2,7 @@
 #include "MLGameEdModeModule.h"
 #include "MLGameEdMode.h"
 #include "EditorModeRegistry.h"
-#include "Styling/SlateIcon.h"
+#include "Textures/SlateIcon.h"
 
 #define LOCTEXT_NAMESPACE "FMLGameEdModeModule"
 
